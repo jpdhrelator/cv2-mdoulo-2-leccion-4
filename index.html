@@ -336,8 +336,9 @@
     <h1 class="page-title">Ejercicios Prácticos · El Framework Bootstrap</h1>
     <p class="intro">
       Cinco retos prácticos para aplicar todo lo visto en la presentación
-      <strong>M2_L4 El Framework Bootstrap</strong>: qué es Bootstrap, cómo
-      incorporarlo a un proyecto, containers, sistema de grilla de 12
+      <strong>M2_L4 El Framework Bootstrap</strong>. En esta lección nos
+      enfocamos en <strong>Bootstrap como framework CSS</strong>: qué es,
+      cómo incorporarlo a un proyecto, containers, sistema de grilla de 12
       columnas, breakpoints responsivos, tablas, alertas, botones, imágenes,
       navbar y formularios.
     </p>
@@ -348,7 +349,7 @@
       <ul>
         <li>Cada ejercicio se entrega como una <strong>carpeta</strong> con su <code>index.html</code> y, si aplica, una subcarpeta <code>assets/</code> con imágenes.</li>
         <li>Trabaja en <strong>VS Code</strong> con la extensión <strong>Live Server</strong>.</li>
-        <li>Incorpora Bootstrap mediante <strong>CDN</strong> en el <code>&lt;head&gt;</code> de tu HTML. No olvides también el <strong>bundle JS</strong> al final del <code>&lt;body&gt;</code> para que funcionen los componentes interactivos.</li>
+        <li>Incorpora <strong>Bootstrap CSS</strong> mediante <strong>CDN</strong> en el <code>&lt;head&gt;</code> de tu HTML. En esta lección nos vamos a centrar exclusivamente en las <strong>clases de Bootstrap</strong>, sin programar JavaScript.</li>
         <li>Usa siempre la estructura <code>container &gt; row &gt; col</code> cuando trabajes con grillas.</li>
         <li>Prueba tu resultado en distintos tamaños de pantalla usando el <strong>modo dispositivo</strong> de las DevTools del navegador (F12).</li>
       </ul>
@@ -569,7 +570,6 @@
       <div class="tags">
         <code>navbar</code>
         <code>navbar-expand-lg</code>
-        <code>dropdown-menu</code>
         <code>alert</code>
         <code>img-fluid</code>
         <code>container</code>
@@ -586,10 +586,10 @@
 
       <h3>Qué debes hacer</h3>
       <ol>
-        <li>Crea una carpeta <code>ejercicio-05-landing</code> con su <code>index.html</code> e incorpora Bootstrap por CDN (CSS y JS).</li>
+        <li>Crea una carpeta <code>ejercicio-05-landing</code> con su <code>index.html</code> e incorpora <strong>Bootstrap CSS</strong> por CDN.</li>
         <li>Tu página debe contener, en este orden:
           <ul>
-            <li>Una <strong>barra de navegación superior</strong> con el nombre de la cafetería como marca, enlaces a "Inicio", "Menú", "Sobre nosotros" y "Contacto", un menú desplegable llamado "Más" con al menos dos opciones, y un buscador con botón. Debe colapsarse en un ícono de menú en pantallas pequeñas.</li>
+            <li>Una <strong>barra de navegación superior</strong> usando las clases <code>navbar</code> y <code>navbar-expand-lg</code>, con el nombre de la cafetería como marca y al menos cuatro enlaces ("Inicio", "Menú", "Sobre nosotros" y "Contacto"). Solo aplicaremos las clases CSS de Bootstrap para darle el aspecto de navbar.</li>
             <li>Una <strong>alerta de bienvenida</strong> de color amarillo justo debajo de la barra, anunciando una promoción.</li>
             <li>Una <strong>sección con 3 columnas iguales</strong> donde cada columna muestre una imagen (puedes usar <code>https://picsum.photos/300/200</code>), un título y una descripción de un producto. Las imágenes deben adaptarse al tamaño de la columna.</li>
             <li>Una <strong>sección con dos columnas</strong>: a la izquierda un texto sobre la historia del local, a la derecha una tabla con los horarios de atención.</li>
@@ -602,7 +602,7 @@
       <div class="success-list">
         <h3>Criterios de éxito</h3>
         <ul>
-          <li>La navbar se colapsa correctamente en móvil al pulsar el ícono.</li>
+          <li>La navbar tiene marca y enlaces aplicando solo clases CSS de Bootstrap.</li>
           <li>Las imágenes nunca se salen de su columna gracias a <code>img-fluid</code>.</li>
           <li>El diseño funciona bien en móvil, tablet y escritorio.</li>
           <li>La página integra al menos 5 componentes distintos de Bootstrap.</li>
