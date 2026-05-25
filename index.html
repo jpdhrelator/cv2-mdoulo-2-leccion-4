@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicios Prácticos · M2_L4 El Framework Bootstrap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --border: #e6e8f0;
+      --text: #1a1d2e;
+      --text-muted: #5a607b;
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --primary-soft: #eef2ff;
+      --accent: #f43f5e;
+      --success: #10b981;
+      --code-bg: #1e1e2e;
+      --code-text: #c5cae9;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 6px 24px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 18px 50px rgba(15, 23, 42, 0.10);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    code, .code {
+      font-family: "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      font-size: 0.85em;
+      font-weight: 500;
+    }
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    /* HEADER */
+    .module-chip {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+    }
+    h1.page-title {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin: 0 0 1.5rem;
+    }
+    .intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin-bottom: 3rem;
+    }
+    /* ANTES DE EMPEZAR */
+    .before {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .before h2 {
+      margin: 0 0 1rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .before ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    .before li { margin-bottom: 0.6rem; color: var(--text-muted); }
+    .before li:last-child { margin-bottom: 0; }
+    .before li strong { color: var(--text); }
+    /* NAV PILLS */
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+    }
+    .nav-pills a {
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: all 0.18s ease;
+    }
+    .nav-pills a:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .nav-pills a .n {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.4rem;
+    }
+    .nav-pills a:hover .n {
+      background: #fff;
+      color: var(--primary);
+    }
+    /* EXERCISE CARDS */
+    .exercise {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.25rem 2.25rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      scroll-margin-top: 2rem;
+    }
+    .exercise::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 5px; height: 100%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+    }
+    .exercise .big-num {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.75rem;
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--primary-soft);
+      line-height: 1;
+      user-select: none;
+    }
+    .exercise h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.3px;
+      max-width: calc(100% - 70px);
+    }
+    .exercise .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+    .exercise .meta .objectives {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .exercise .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .exercise h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text);
+    }
+    .exercise p { color: var(--text-muted); margin: 0 0 1rem; }
+    .exercise p strong { color: var(--text); }
+    .exercise ol, .exercise ul { padding-left: 1.3rem; color: var(--text-muted); }
+    .exercise ol li, .exercise ul li { margin-bottom: 0.55rem; }
+    .exercise li strong { color: var(--text); }
+    .exercise li ul { margin-top: 0.5rem; }
+    .success-list {
+      background: #ecfdf5;
+      border-left: 4px solid var(--success);
+      border-radius: 0 12px 12px 0;
+      padding: 1rem 1.25rem 1rem 1.5rem;
+      margin-top: 1.25rem;
+    }
+    .success-list h3 {
+      margin-top: 0 !important;
+      color: #047857;
+    }
+    .success-list ul {
+      color: #065f46 !important;
+      margin-bottom: 0;
+    }
+    .success-list li strong { color: #064e3b; }
+    /* HINT BOX */
+    .hint-box {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 1px solid #fcd34d;
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      margin: 2.5rem 0;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .hint-box .icon { font-size: 1.8rem; flex-shrink: 0; }
+    .hint-box p { margin: 0; color: #78350f; }
+    .hint-box p strong { color: #451a03; }
+    .hint-box a { color: #b45309; font-weight: 600; }
+    /* ENTREGA */
+    .delivery {
+      background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      margin-top: 3rem;
+    }
+    .delivery h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 0.75rem;
+    }
+    .delivery p {
+      color: #c7d2fe;
+      max-width: 580px;
+      margin: 0 auto 1.75rem;
+    }
+    .delivery p strong { color: #fff; }
+    .delivery .filename {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.92em;
+      font-weight: 500;
+    }
+    .btn-upload {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #fff;
+      color: var(--primary-dark);
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      transition: all 0.2s ease;
+    }
+    .btn-upload:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(0,0,0,.35);
+      background: #f5f3ff;
+    }
+    .btn-upload .arrow { font-size: 1.1em; }
+    .btn-upload .icon-folder { font-size: 1.4em; }
+    .btn-upload-sub {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: -0.15rem;
+    }
+    .btn-upload-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+    .btn-upload-stack small {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--primary);
+      letter-spacing: 0.3px;
+    }
+    /* FOOTER */
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      padding: 2.5rem 0 0;
+      border-top: 1px solid var(--border);
+      margin-top: 3.5rem;
+    }
+    /* MEDIA QUERIES */
+    @media (max-width: 640px) {
+      .wrap { padding: 2rem 1rem 3rem; }
+      .exercise { padding: 1.5rem 1.25rem 1.5rem 1.5rem; }
+      .exercise .big-num { font-size: 3.5rem; top: 1rem; right: 1rem; }
+      .exercise h2 { font-size: 1.3rem; max-width: calc(100% - 50px); }
+      .delivery { padding: 2rem 1.25rem; }
+      .btn-upload { padding: 0.85rem 1.4rem; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- HEADER -->
+    <span class="module-chip">Módulo 2 · Lección 4</span>
+    <h1 class="page-title">Ejercicios Prácticos · El Framework Bootstrap</h1>
+    <p class="intro">
+      Cinco retos prácticos para aplicar todo lo visto en la presentación
+      <strong>M2_L4 El Framework Bootstrap</strong>: qué es Bootstrap, cómo
+      incorporarlo a un proyecto, containers, sistema de grilla de 12
+      columnas, breakpoints responsivos, tablas, alertas, botones, imágenes,
+      navbar y formularios.
+    </p>
+
+    <!-- ANTES DE EMPEZAR -->
+    <section class="before">
+      <h2>📋 Antes de empezar</h2>
+      <ul>
+        <li>Cada ejercicio se entrega como una <strong>carpeta</strong> con su <code>index.html</code> y, si aplica, una subcarpeta <code>assets/</code> con imágenes.</li>
+        <li>Trabaja en <strong>VS Code</strong> con la extensión <strong>Live Server</strong>.</li>
+        <li>Incorpora Bootstrap mediante <strong>CDN</strong> en el <code>&lt;head&gt;</code> de tu HTML. No olvides también el <strong>bundle JS</strong> al final del <code>&lt;body&gt;</code> para que funcionen los componentes interactivos.</li>
+        <li>Usa siempre la estructura <code>container &gt; row &gt; col</code> cuando trabajes con grillas.</li>
+        <li>Prueba tu resultado en distintos tamaños de pantalla usando el <strong>modo dispositivo</strong> de las DevTools del navegador (F12).</li>
+      </ul>
+    </section>
+
+    <!-- NAV -->
+    <nav class="nav-pills">
+      <a href="#ej1"><span class="n">1</span>Grilla de 12 columnas</a>
+      <a href="#ej2"><span class="n">2</span>Galería responsiva</a>
+      <a href="#ej3"><span class="n">3</span>Reporte de calificaciones</a>
+      <a href="#ej4"><span class="n">4</span>Formulario de inscripción</a>
+      <a href="#ej5"><span class="n">5</span>Landing page</a>
+    </nav>
+
+    <!-- EJERCICIO 1 -->
+    <article id="ej1" class="exercise">
+      <div class="big-num">1</div>
+      <h2>Mi primera grilla de 12 columnas</h2>
+      <p class="meta">
+        <span class="objectives">🎯 Containers · Grid · Filas y columnas</span>
+      </p>
+      <div class="tags">
+        <code>container</code>
+        <code>row</code>
+        <code>col-12</code>
+        <code>col-6</code>
+        <code>col-md-8</code>
+        <code>col-md-4</code>
+      </div>
+
+      <h3>Contexto</h3>
+      <p>
+        Vas a construir una página que demuestre cómo funciona la grilla de
+        Bootstrap usando un mismo contenedor con tres filas distintas. Cada
+        fila debe verse claramente diferente para que se note el sistema de
+        12 unidades.
+      </p>
+
+      <h3>Qué debes hacer</h3>
+      <ol>
+        <li>Crea una carpeta <code>ejercicio-01-grilla</code> con un archivo <code>index.html</code>. Incorpora Bootstrap por CDN.</li>
+        <li>Envuelve todo tu contenido dentro de un <code>container</code> (no <code>container-fluid</code>).</li>
+        <li>Crea una <strong>primera fila</strong> con UNA sola columna que ocupe los 12 espacios disponibles. Dentro escribe un título que diga "Bienvenido a mi grilla".</li>
+        <li>Crea una <strong>segunda fila</strong> con DOS columnas iguales (cada una ocupa la mitad del ancho disponible).</li>
+        <li>Crea una <strong>tercera fila</strong> con TRES columnas, donde la del medio sea más ancha que las dos de los costados. La suma de las tres debe dar exactamente 12.</li>
+        <li>Aplica un <strong>color de fondo diferente</strong> a cada columna usando estilos en línea para que se vean las divisiones.</li>
+        <li>Dentro de cada columna agrega un texto descriptivo indicando cuántas unidades de la grilla ocupa.</li>
+      </ol>
+
+      <div class="success-list">
+        <h3>Criterios de éxito</h3>
+        <ul>
+          <li>La página tiene Bootstrap enlazado por CDN.</li>
+          <li>Hay un solo <code>container</code> envolviendo todas las filas.</li>
+          <li>Cada fila suma exactamente <strong>12 unidades</strong>.</li>
+          <li>Los colores de fondo permiten ver claramente la división de columnas.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- EJERCICIO 2 -->
+    <article id="ej2" class="exercise">
+      <div class="big-num">2</div>
+      <h2>Galería que cambia con la pantalla</h2>
+      <p class="meta">
+        <span class="objectives">🎯 Grid responsivo · Breakpoints · Mobile First</span>
+      </p>
+      <div class="tags">
+        <code>col</code>
+        <code>col-sm-6</code>
+        <code>col-md-4</code>
+        <code>col-lg-2</code>
+        <code>row</code>
+      </div>
+
+      <h3>Contexto</h3>
+      <p>
+        Tu misión es crear una galería de <strong>6 tarjetas</strong> que se
+        comporten de manera distinta según el dispositivo del usuario. Vas a
+        usar los puntos de ruptura (breakpoints) de Bootstrap para que el
+        diseño se adapte solo.
+      </p>
+
+      <h3>Qué debes hacer</h3>
+      <ol>
+        <li>Crea una carpeta <code>ejercicio-02-galeria</code> con su <code>index.html</code> e incorpora Bootstrap por CDN.</li>
+        <li>Dentro de un <code>container</code>, crea un <code>row</code> con 6 tarjetas (divs hijos).</li>
+        <li>Configura las clases de cada tarjeta para que cumplan este comportamiento:
+          <ul>
+            <li>En pantallas muy pequeñas (menos de 576px): cada tarjeta debe ocupar el <strong>ancho completo</strong> (una abajo de la otra).</li>
+            <li>En pantallas pequeñas (desde 576px): <strong>2 tarjetas por fila</strong>.</li>
+            <li>En pantallas medianas (desde 768px): <strong>3 tarjetas por fila</strong>.</li>
+            <li>En pantallas grandes (desde 992px): <strong>6 tarjetas en una sola fila</strong>.</li>
+          </ul>
+        </li>
+        <li>Cada tarjeta debe contener: un título, un párrafo de descripción y un color de fondo distinto para que se note la separación.</li>
+        <li>Para comprobar que funciona, ve achicando y agrandando la ventana del navegador.</li>
+      </ol>
+
+      <div class="success-list">
+        <h3>Criterios de éxito</h3>
+        <ul>
+          <li>Una sola clase combinada en cada tarjeta cubre todos los breakpoints.</li>
+          <li>El cambio es visible al redimensionar la ventana.</li>
+          <li>No se escribió CSS manual de media queries — todo lo hace Bootstrap.</li>
+          <li>Las tarjetas son distinguibles por su color de fondo.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- EJERCICIO 3 -->
+    <article id="ej3" class="exercise">
+      <div class="big-num">3</div>
+      <h2>Reporte de calificaciones</h2>
+      <p class="meta">
+        <span class="objectives">🎯 Tablas · Estilos contextuales · Responsive</span>
+      </p>
+      <div class="tags">
+        <code>table</code>
+        <code>table-striped</code>
+        <code>table-bordered</code>
+        <code>table-hover</code>
+        <code>table-dark</code>
+        <code>table-responsive</code>
+        <code>table-success</code>
+        <code>table-danger</code>
+      </div>
+
+      <h3>Contexto</h3>
+      <p>
+        Imagina que eres profesor o profesora y necesitas mostrar las notas
+        de tus estudiantes en una tabla bonita. Vas a crear
+        <strong>una sola tabla</strong> con al menos 5 alumnos imaginarios
+        que aproveche todas las clases de tabla que vimos en clase.
+      </p>
+
+      <h3>Qué debes hacer</h3>
+      <ol>
+        <li>Crea una carpeta <code>ejercicio-03-tabla</code> con su <code>index.html</code> e incorpora Bootstrap por CDN.</li>
+        <li>La tabla debe tener un <strong>encabezado con fondo oscuro y texto claro</strong>.</li>
+        <li>Las filas deben tener <strong>colores alternos</strong> para facilitar la lectura.</li>
+        <li>Debe mostrar un <strong>efecto al pasar el mouse</strong> sobre cada fila.</li>
+        <li>La tabla debe tener <strong>bordes visibles</strong> en todas las celdas.</li>
+        <li>Debe ser <strong>responsiva</strong>: en pantallas pequeñas debe poder desplazarse horizontalmente sin romper el diseño.</li>
+        <li>Pinta una fila completa de <strong>verde</strong> (para una nota sobresaliente) y otra fila completa de <strong>rojo</strong> (para una nota reprobatoria) usando las clases contextuales.</li>
+        <li>Columnas mínimas que debe tener: Nº, Nombre, Apellido, Curso, Nota y Asistencia.</li>
+      </ol>
+
+      <div class="success-list">
+        <h3>Criterios de éxito</h3>
+        <ul>
+          <li>La tabla combina al menos <strong>cuatro clases utilitarias</strong> de Bootstrap.</li>
+          <li>Las clases contextuales se aplican a <code>&lt;tr&gt;</code>, no celda por celda.</li>
+          <li>En móvil aparece la barra de desplazamiento horizontal (no se rompe el diseño).</li>
+          <li>El encabezado se distingue claramente del cuerpo.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- EJERCICIO 4 -->
+    <article id="ej4" class="exercise">
+      <div class="big-num">4</div>
+      <h2>Formulario de inscripción</h2>
+      <p class="meta">
+        <span class="objectives">🎯 Forms · form-control · Grilla en formularios</span>
+      </p>
+      <div class="tags">
+        <code>form-control</code>
+        <code>form-label</code>
+        <code>form-text</code>
+        <code>form-check</code>
+        <code>btn-primary</code>
+        <code>btn-secondary</code>
+      </div>
+
+      <h3>Contexto</h3>
+      <p>
+        Vas a crear un formulario de inscripción a un evento de tecnología.
+        El formulario debe verse profesional, estar bien organizado y
+        aprovechar la grilla para colocar campos en línea.
+      </p>
+
+      <h3>Qué debes hacer</h3>
+      <ol>
+        <li>Crea una carpeta <code>ejercicio-04-formulario</code> con su <code>index.html</code> e incorpora Bootstrap por CDN.</li>
+        <li>El formulario debe contener:
+          <ul>
+            <li>Una fila con <strong>Nombres</strong> y <strong>Apellidos</strong> en columnas separadas (en pantallas medianas y grandes en la misma línea, en pantallas chicas apilados).</li>
+            <li>Un campo de <strong>correo electrónico</strong> con un texto de ayuda debajo que diga "Nunca compartiremos tu correo".</li>
+            <li>Un campo de <strong>contraseña</strong>.</li>
+            <li>Un <strong>área de texto</strong> grande para "Comentarios".</li>
+            <li>Un <strong>checkbox</strong> que diga "Acepto los términos y condiciones".</li>
+            <li>Un botón de envío con estilo <strong>primario</strong> y un botón <strong>secundario</strong> para "Cancelar".</li>
+          </ul>
+        </li>
+        <li>Todo el formulario debe estar contenido dentro de un container y tener bordes y un poco de relleno para que se vea limpio.</li>
+        <li>Cada etiqueta debe estar asociada correctamente al input mediante el atributo <code>for</code> y el <code>id</code> del input.</li>
+      </ol>
+
+      <div class="success-list">
+        <h3>Criterios de éxito</h3>
+        <ul>
+          <li>Todos los inputs usan la clase <code>form-control</code>.</li>
+          <li>Las etiquetas están vinculadas mediante <code>for</code> / <code>id</code>.</li>
+          <li>Los campos Nombres y Apellidos se ven en línea desde pantallas medianas.</li>
+          <li>El formulario tiene borde y padding claros.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- EJERCICIO 5 -->
+    <article id="ej5" class="exercise">
+      <div class="big-num">5</div>
+      <h2>Landing page de una cafetería</h2>
+      <p class="meta">
+        <span class="objectives">🎯 Integración total: Navbar · Grid · Tablas · Forms · Alertas · Imágenes</span>
+      </p>
+      <div class="tags">
+        <code>navbar</code>
+        <code>navbar-expand-lg</code>
+        <code>dropdown-menu</code>
+        <code>alert</code>
+        <code>img-fluid</code>
+        <code>container</code>
+        <code>btn</code>
+      </div>
+
+      <h3>Contexto</h3>
+      <p>
+        Desafío final: integra todo lo aprendido en una sola página web. Vas
+        a construir la landing page de una cafetería ficticia. La página
+        debe ser totalmente responsiva y demostrar que dominas los
+        componentes principales de Bootstrap.
+      </p>
+
+      <h3>Qué debes hacer</h3>
+      <ol>
+        <li>Crea una carpeta <code>ejercicio-05-landing</code> con su <code>index.html</code> e incorpora Bootstrap por CDN (CSS y JS).</li>
+        <li>Tu página debe contener, en este orden:
+          <ul>
+            <li>Una <strong>barra de navegación superior</strong> con el nombre de la cafetería como marca, enlaces a "Inicio", "Menú", "Sobre nosotros" y "Contacto", un menú desplegable llamado "Más" con al menos dos opciones, y un buscador con botón. Debe colapsarse en un ícono de menú en pantallas pequeñas.</li>
+            <li>Una <strong>alerta de bienvenida</strong> de color amarillo justo debajo de la barra, anunciando una promoción.</li>
+            <li>Una <strong>sección con 3 columnas iguales</strong> donde cada columna muestre una imagen (puedes usar <code>https://picsum.photos/300/200</code>), un título y una descripción de un producto. Las imágenes deben adaptarse al tamaño de la columna.</li>
+            <li>Una <strong>sección con dos columnas</strong>: a la izquierda un texto sobre la historia del local, a la derecha una tabla con los horarios de atención.</li>
+            <li>Un <strong>mini formulario de suscripción</strong> al final, con un campo de email y un botón "Suscribirme".</li>
+          </ul>
+        </li>
+        <li>En la página deben aparecer al menos <strong>3 botones distintos</strong> usando estilos diferentes (primario, éxito, advertencia, etc.).</li>
+      </ol>
+
+      <div class="success-list">
+        <h3>Criterios de éxito</h3>
+        <ul>
+          <li>La navbar se colapsa correctamente en móvil al pulsar el ícono.</li>
+          <li>Las imágenes nunca se salen de su columna gracias a <code>img-fluid</code>.</li>
+          <li>El diseño funciona bien en móvil, tablet y escritorio.</li>
+          <li>La página integra al menos 5 componentes distintos de Bootstrap.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- PISTA -->
+    <div class="hint-box">
+      <span class="icon">💡</span>
+      <p>
+        <strong>Pista general:</strong> cuando dudes sobre una clase de
+        Bootstrap, la fuente oficial siempre es la
+        <a href="https://getbootstrap.com/docs/5.3/" target="_blank" rel="noopener">documentación de Bootstrap 5.3</a>.
+        Trabaja sección por sección, no intentes hacerlo todo de una vez. Si
+        algo no se ve, abre las DevTools del navegador (F12) y revisa cómo
+        se aplican las clases.
+      </p>
+    </div>
+
+    <!-- ENTREGA -->
+    <section class="delivery">
+      <h2>📦 Entrega</h2>
+      <p>
+        Comprime las cinco carpetas en un único archivo
+        <span class="filename">apellido-nombre-M2L4.zip</span> y súbelo a la
+        carpeta compartida del curso en Google Drive.
+      </p>
+      <a
+        class="btn-upload"
+        href="https://drive.google.com/drive/folders/1WxaP20MMe1s0W4uCMQm6-Olyqp_kkm4o?usp=sharing"
+        target="_blank"
+        rel="noopener">
+        <span class="icon-folder">📂</span>
+        <span class="btn-upload-stack">
+          <small>SUBIR MIS EJERCICIOS</small>
+          <span>Carpeta compartida en Google Drive <span class="arrow">↗</span></span>
+        </span>
+      </a>
+    </section>
+
+    <footer>
+      Módulo 2 · Lección 4 — El Framework Bootstrap · Ejercicios prácticos
+    </footer>
+  </main>
+</body>
+</html>
